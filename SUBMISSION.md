@@ -2,7 +2,7 @@
 
 ## Links
 
-- **Live product:** `<ADD LIVE URL>`
+- **Live product:** https://ajaia-docs-chi-two.vercel.app
 - **Walkthrough video:** in [`VIDEO_URL.txt`](VIDEO_URL.txt)
 
 ## Test accounts
@@ -22,7 +22,7 @@ No passwords. Pick a user on the sign-in screen:
 | Architecture note | [`ARCHITECTURE.md`](ARCHITECTURE.md) |
 | AI workflow note | [`AI_WORKFLOW.md`](AI_WORKFLOW.md) |
 | Automated tests | `server/test/api.test.js` (14 tests, run with `npm test`) and `server/test/fixtures/quarterly-review.docx` |
-| Deployment config | `render.yaml`, `.nvmrc` |
+| Deployment config | `vercel.json` and `server/vercel.js` (live demo on Vercel), `render.yaml`, `.nvmrc` |
 | Walkthrough video URL | [`VIDEO_URL.txt`](VIDEO_URL.txt) |
 | This file | `SUBMISSION.md` |
 

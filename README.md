@@ -2,7 +2,7 @@
 
 A lightweight collaborative document editor: create, format, import, and share documents. Built for the Ajaia AI-Native Full Stack Developer assignment.
 
-- **Live demo:** `<ADD LIVE URL>`
+- **Live demo:** https://ajaia-docs-chi-two.vercel.app
 - **Walkthrough video:** see [`VIDEO_URL.txt`](VIDEO_URL.txt)
 - **Architecture note:** [`ARCHITECTURE.md`](ARCHITECTURE.md)
 - **AI workflow note:** [`AI_WORKFLOW.md`](AI_WORKFLOW.md)
@@ -68,7 +68,9 @@ The first run creates `data/ajaia.db` and seeds the demo users and the welcome d
 
 ## Deploy
 
-`render.yaml` describes a single free Render web service: **New → Blueprint →** select the repo. Build: `npm ci --include=dev && npm run build`. Start: `npm start`.
+**Vercel (live demo):** `vercel.json` defines two services in one project: the Vite client, and the Express API (`server/vercel.js`) which receives every `/api/*` request. Pushing to `main` deploys. A function's filesystem is read-only apart from `/tmp`, so the SQLite file lives in `/tmp/ajaia.db`: it is per-instance and resets to the seed data whenever the instance is recycled, so the persistence caveat below applies here too.
+
+**Render:** `render.yaml` describes a single free Render web service: **New → Blueprint →** select the repo. Build: `npm ci --include=dev && npm run build`. Start: `npm start`.
 
 **Persistence caveat on free hosting:** Render's free plan has an ephemeral filesystem, so the SQLite file resets when the service restarts or redeploys (it also sleeps after ~15 min idle). Demo users and the welcome doc are re-seeded on boot, so the demo always works, but documents you create won't survive a restart. For durable storage, mount a persistent disk (Render paid, Fly.io or Railway volume) and set `DB_FILE=/data/ajaia.db`. No code changes needed.
 
@@ -77,6 +79,7 @@ The first run creates `data/ajaia.db` and seeds the demo users and the welcome d
 ```
 server/
   index.js        entry point (port, DB)
+  vercel.js       Vercel entry point (same app, exported as a function)
   app.js          Express app: auth, documents, sharing, import, static client
   db.js           schema + seed data (node:sqlite)
   content.js      HTML sanitising, .txt/.md/.docx → HTML
